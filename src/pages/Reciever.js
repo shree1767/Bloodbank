@@ -64,7 +64,7 @@ const Reciever = () => {
           {bloodGroupOptions.map(option => (
             <button
               key={option.value}
-              className={`bg-${selectedBloodGroup === option.value ? '[#CC2E2B]' : 'red-500'} text-white rounded-full m-1 p-3 w-20 h-20 transition-colors duration:400`}
+              className={`bg-${selectedBloodGroup === option.value ? '[#CC2E2B]' : '[#CC2E2B]'} text-white rounded-full m-1 p-3 w-20 h-20 transition-colors duration:400`}
               onClick={() => handleBloodGroupChange(option)}
             >
               {option.label}

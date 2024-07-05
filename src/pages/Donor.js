@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-const Donor = () => {
+
+const Donor = ({user}) => {
+
   const [form, setForm] = useState({
-    name: "",
-    email: "",
+    name: user? user.username :"",
+    email: user? user.email:"",
     phone: "",
     blood_group: "",
     location: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        name: user.username,
+        email: user.email
+      }));
+    }
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +32,7 @@ const Donor = () => {
       [name]: value,
     });
   };
+
   const navigate = useNavigate();
 
   const handleBloodGroupChange = (selectedOption) => {
@@ -64,6 +77,8 @@ const Donor = () => {
     { value: "O+", label: "O+" },
     { value: "O-", label: "O-" },
   ];
+
+  const [locations, setLocations] = useState([]);
 
   return (
     <div className="flex justify-between h-screen">
@@ -130,13 +145,12 @@ const Donor = () => {
 
           <div className="flex flex-col justify-between">
             <label htmlFor="location">Location</label>
-            <input
-              type="text"
-              id="location"
-              name="location"
-              value={form.location}
+            <Dropdown
+              options={bloodGroupOptions}
               onChange={handleInputChange}
-              className="border-none bg-transparent w-full focus:outline-none"
+              value={form.location}
+              placeholder="Select Location"
+              className="w-full my-2"
               required
             />
           </div>

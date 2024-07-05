@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState,useEffect} from "react";
+import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Landing from "./pages/Landing";
@@ -11,9 +12,27 @@ import Signup from "./pages/Auth/Signup";
 
 function App() {
   const [isAuth, setisAuth] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const fetchUserProfile = async (token) => {
+    try {
+      const response = await axios.get("https://bloodbank-server-2g3p.onrender.com/user/profile", {
+        headers: {
+          "x-auth-token": token,
+        },
+      });
+      setUser(response.data);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      setisAuth(false); // If the token is invalid or expired, log out the user
+      localStorage.removeItem("token");
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      fetchUserProfile(token)
       setisAuth(true);
     }
   }, []);
@@ -32,7 +51,7 @@ function App() {
         )}
         {isAuth && (
           <>
-            <Route path="/donor" element={<Donor />} />
+            <Route path="/donor" element={<Donor user={user}/>} />
             <Route path="/reciever" element={<Reciever />} />
           </>
         )}

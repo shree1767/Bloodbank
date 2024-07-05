@@ -38,7 +38,7 @@ const Signup = ({ isAuth, setisAuth }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/user/signup", {
+      const response = await fetch("https://bloodbank-server-2g3p.onrender.com/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

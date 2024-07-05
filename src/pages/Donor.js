@@ -30,7 +30,7 @@ const Donor = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/donor/post", {
+    fetch("https://bloodbank-server-2g3p.onrender.com/donor/post", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

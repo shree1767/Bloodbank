@@ -23,7 +23,7 @@ const Login = ({ isAuth, setisAuth }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/user/login", {
+      const response = await fetch("https://bloodbank-server-2g3p.onrender.com/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -11,7 +11,7 @@ const Reciever = () => {
   }, []);
 
   const fetchData = () => {
-    fetch('http://localhost:3000/donor/get')
+    fetch('https://bloodbank-server-2g3p.onrender.com/donor/get')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
